@@ -47,15 +47,16 @@ LIBR_SRCS = ./libr/libft/ft_isascii.c \
 	./libr/libft/ft_lstmap.c \
 	./libr/gnl/get_next_line.c \
 	./libr/gnl/get_next_line_utils.c
-
-
 ENTRY = ./mandatory/pipex.c
 INCLUDE_MAN = ./mandatory/pipex.h
 LIBR_INCLUDE = ./libr/libr.h
 LIBR = libr.a
 NAME = pipex
+BONUS = pipexx
 
 all: $(LIBR) $(NAME)
+
+bonus: $(LIBR) $(NAME)
 
 $(LIBR): $(LIBR_SRCS)
 	make -C libr
@@ -63,8 +64,11 @@ $(LIBR): $(LIBR_SRCS)
 %.o: %.c $(INCLUDE)
 	$(CC) $(FLAGS) -I $(INCLUDE_MAN) -c $< -o $@
 
-$(NAME): $(OBJS_MAN) $(INCLUDE_MAN) $(LIBR)
+$(NAME): $(ENTRY) $(OBJS_MAN) $(INCLUDE_MAN) $(LIBR)
 	make -C mandatory
+
+$(BONUS): $(OBJS_MAN) $(INCLUDE_MAN) $(LIBR)
+	make -C bonus
 
 clean:
 	rm -rf $(OBJS_MAN)

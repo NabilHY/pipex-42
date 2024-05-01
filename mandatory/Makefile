@@ -1,18 +1,20 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror
-SRCS = ./srcs/utils.c 
+SRCS = ./srcs/utils.c \
+./srcs/path.c
 OBJS = $(SRCS:%.c=%.o)
 ENTRY = ./pipex.c
 INCLUDE = ./pipex.h
 LIBR = ../libr.a
 NAME = ../pipex
+FSANITIZE = -fsanitize=address
 
 all: $(NAME)
 
-%.o: %.c
+%.o: %.c $(SRCS) $(INCLUDE)
 	$(CC) $(FLAGS) -I $(INCLUDE) -c $< -o $@
 
-$(NAME): $(OBJS) $(INCLUDE) $(LIBR)
+$(NAME): $(ENTRY) $(OBJS) $(INCLUDE) $(LIBR)
 	$(CC) $(FLAGS) $(ENTRY) -I$(INCLUDE) $(OBJS) $(LIBR) -o $(NAME)
 
 clean:
