@@ -6,11 +6,48 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:54:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/02 12:40:39 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/02 20:49:13 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+
+int	ft_parce(t_comm *comm, char *str)
+{
+	int i;
+	int start;
+	int wc;
+	int boo;
+
+	i = 0;
+	boo = 0;
+	wc = 0;
+	start = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ' && !boo)
+		{
+			if (i != start)
+			{
+				str[i] = '\0';
+				
+			}
+			start = i + 1;
+		}
+		else if (str[i] == '\'' && !boo)
+		{
+			if (i != start)
+			{
+				str[i] = '\0';
+				append(ft_lstnew(ft_strdup(str[start])));
+			}
+			start = i + 1;
+		}
+		if (str[i] == '\'')
+			boo = 1;
+		i++;
+	}
+}
 
 int	is_bin(char **bin_dir, char *cmd)
 {
@@ -76,6 +113,7 @@ void	parce_arg(t_comm *arg, char *str, char **envp)
 	if (paths && is_bin(paths, cmd_line[0]) != -1)
 	{
 		arg->path = ft_strdup(paths[is_bin(paths, cmd_line[0])]);
+		arg_split_(str);
 	}
 	free_darr(paths);
 }

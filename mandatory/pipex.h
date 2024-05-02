@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:25:29 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/01 16:57:21 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/02 20:43:49 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,20 @@
 # include <stdio.h>
 # include <sys/wait.h>
 
-typedef struct t_comm
+typedef struct s_token
 {
-	char *path;
-	char **argv;
-	char **envp;
+	int	index;
+	char *str;
+}	t_token;
+
+typedef struct s_comm
+{
+	char 	*path;
+	char 	**argv;
+	char 	**envp;
+	t_token	**tokens;
 	int flag;
-}	s_comm;
+}	t_comm;
 
 # define INVALID_FORMAT "Usage: ./pipex <in> \"cmd1\" \"cmd2\" <out>\n"
 
