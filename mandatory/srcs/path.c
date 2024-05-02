@@ -6,30 +6,11 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:54:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/01 16:56:49 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:40:39 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
-
-void	handle_error(void)
-{
-	perror("Error");
-	exit(1);
-}
-
-void	free_darr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
 
 int	is_bin(char **bin_dir, char *cmd)
 {
@@ -83,4 +64,18 @@ char 	**get_paths(char **env)
 		temp = NULL;
 	}
 	return (bin_dirs);
+}
+
+void	parce_arg(t_comm *arg, char *str, char **envp)
+{
+	char	**cmd_line;
+	char	**paths;
+
+	cmd_line = ft_split(str, ' ');
+	paths = get_paths(envp);
+	if (paths && is_bin(paths, cmd_line[0]) != -1)
+	{
+		arg->path = ft_strdup(paths[is_bin(paths, cmd_line[0])]);
+	}
+	free_darr(paths);
 }

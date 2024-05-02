@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:23:09 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/01 16:56:26 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:13:20 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	leaks()
 	system("leaks pipex");
 }
 
-int	main(int ac, char *av[], char *env[]) 
+int	main(int ac, char *av[], char *env[])
 {
 	//int	in;
 	//int out;
