@@ -6,47 +6,56 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:54:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/02 20:49:13 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/03 16:20:24 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int	ft_parce(t_comm *comm, char *str)
+char 	**get_paths(char **env)
 {
-	int i;
-	int start;
-	int wc;
-	int boo;
+	char	**temp;
+	char	**bin_dirs;
+	char	*path_env;
+	int		i;
 
 	i = 0;
-	boo = 0;
-	wc = 0;
-	start = 0;
-	while (str[i])
+	path_env = NULL;
+	bin_dirs = NULL;
+	while (env && env[i])
 	{
-		if (str[i] == ' ' && !boo)
-		{
-			if (i != start)
-			{
-				str[i] = '\0';
-				
-			}
-			start = i + 1;
-		}
-		else if (str[i] == '\'' && !boo)
-		{
-			if (i != start)
-			{
-				str[i] = '\0';
-				append(ft_lstnew(ft_strdup(str[start])));
-			}
-			start = i + 1;
-		}
-		if (str[i] == '\'')
-			boo = 1;
+		if (ft_strnstr(env[i], "PATH=", 5))
+			path_env = env[i];
 		i++;
 	}
+	if (path_env)
+	{
+		temp = ft_split(path_env, '=');
+		bin_dirs = ft_split(temp[1], ':');
+		free_darr(temp);
+		temp = NULL;
+	}
+	return (bin_dirs);
+}
+
+/*Determine the exec path for a given comm, abs and rel paths*/
+void	get_exec(char *av, t_comm *comm, char **envp)
+{
+	char **paths;
+	int i;
+
+	paths = get_paths(envp);
+	if (av[0] == '.' && av[1] == '/' && !access(av, X_OK))
+		comm->path = ft_strdup(av);
+	else if (av[0] == '/' && !access(av, X_OK))
+		comm->path = ft_strdup(av);
+	else if (is_bin(paths, av) != -1)
+		comm->path = ft_strjoin(paths[is_bin(paths, av)], av);
+	else
+		comm->path = NULL;
+	if (paths)
+		free_darr(paths);
+	return ;
 }
 
 int	is_bin(char **bin_dir, char *cmd)
@@ -77,43 +86,26 @@ int	is_bin(char **bin_dir, char *cmd)
 	return (path_i);
 }
 
-char 	**get_paths(char **env)
-{
-	char	**temp;
-	char	**bin_dirs;
-	char	*path_env;
-	int		i;
-
-	i = 0;
-	path_env = NULL;
-	bin_dirs = NULL;
-	while (env && env[i])
-	{
-		if (ft_strnstr(env[i], "PATH=", 5))
-			path_env = env[i];
-		i++;
-	}
-	if (path_env)
-	{
-		temp = ft_split(path_env, '=');
-		bin_dirs = ft_split(temp[1], ':');
-		free_darr(temp);
-		temp = NULL;
-	}
-	return (bin_dirs);
-}
-
-void	parce_arg(t_comm *arg, char *str, char **envp)
+/* Parses argument from command line string and stores them in the provided command structure*/
+void	parce_arg(t_comm *cmd, char **av, char **envp, int i)
 {
 	char	**cmd_line;
-	char	**paths;
+	t_comm 	**comms;
 
-	cmd_line = ft_split(str, ' ');
-	paths = get_paths(envp);
-	if (paths && is_bin(paths, cmd_line[0]) != -1)
+	cmd_line = tokenize_(av);
+	get_exec(cmd_line[0], cmd, envp);
+	if (!cmd->path)
+		handle_err();
+}
+
+t_comm	**append_comms(t_comm **comms, char **av, int ac, char **envp)
+{
+	int i;
+
+	i = 2;
+	while (i < ac - 1)
 	{
-		arg->path = ft_strdup(paths[is_bin(paths, cmd_line[0])]);
-		arg_split_(str);
+		parce_arg(comms, av[i], envp, i);
+		i++;
 	}
-	free_darr(paths);
 }
