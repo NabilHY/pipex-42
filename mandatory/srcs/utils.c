@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:27:12 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/04 16:53:41 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/09 20:45:21 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_darr(char **arr)
 	free(arr);
 }
 
-void	handle_error(void)
+void	w(void)
 {
 	perror("Error");
 	exit(1);

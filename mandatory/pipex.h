@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:25:29 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/04 16:53:45 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/09 20:45:37 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,40 @@
 typedef struct s_comm
 {
 	char			**args;
+	char			*comm;
+	char			*path;
+	int				in;
+	int				out;
+	int				fd[2];
+	int				pid;
 	int				index;
 	struct	s_comm	*next;
 }	t_comm;
 
+typedef struct s_io
+{
+	int		in;
+	int		out;
+}	t_io;
+
 # define INVALID_FORMAT "Usage: ./pipex <in> \"cmd1\" \"cmd2\" <out>\n"
 
-int		is_bin(char **bin_dir, char *cmd);
+void	get_exec(char *av, t_comm *comm, char **envp);
 
-char 	**get_paths(char **env);
+t_comm		*ft_lstnew(void);
+
+void	ft_lstadd_back(t_comm **lst, t_comm *cmd);
 
 void	free_darr(char **arr);
+
+t_comm	*append_comms_(char **av, int ac, char **envp);
+
+int		lst_count(t_comm **lst);
+
+void 	freell(t_comm **lst);
+
+void	execute_pipes(t_comm *cl, int count, t_io *ios);
+
+void	handle_error(void);
 
 #endif

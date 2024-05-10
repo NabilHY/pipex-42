@@ -1,7 +1,10 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 SRCS = ./srcs/utils.c \
-./srcs/path.c
+./srcs/path.c \
+./srcs/list.c \
+./srcs/parsing.c \
+./srcs/pipes.c
 OBJS = $(SRCS:%.c=%.o)
 ENTRY = ./pipex.c
 INCLUDE = ./pipex.h
@@ -22,5 +25,4 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME) $(LIBR)
-
 re: fclean all

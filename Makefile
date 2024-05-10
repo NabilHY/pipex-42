@@ -1,6 +1,9 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror
-SRCS_MAN = ./mandatory/srcs/utils.c 
+SRCS_MAN = ./mandatory/srcs/utils.c \
+./mandatory/srcs/list.c \
+./mandatory/srcs/path.c \
+./mandatory/srcs/parsing.c
 OBJS_MAN = $(SRCS_MAN:%.c=%.o)
 LIBR_SRCS = ./libr/libft/ft_isascii.c \
 	./libr/libft/ft_isalpha.c \
@@ -36,15 +39,6 @@ LIBR_SRCS = ./libr/libft/ft_isascii.c \
 	./libr/libft/ft_putstr_fd.c \
 	./libr/libft/ft_putnbr_fd.c \
 	./libr/libft/ft_putendl_fd.c \
-	./libr/libft/ft_lstnew.c \
-	./libr/libft/ft_lstadd_front.c \
-	./libr/libft/ft_lstsize.c \
-	./libr/libft/ft_lstlast.c \
-	./libr/libft/ft_lstadd_back.c \
-	./libr/libft/ft_lstdelone.c \
-	./libr/libft/ft_lstclear.c \
-	./libr/libft/ft_lstiter.c \
-	./libr/libft/ft_lstmap.c \
 	./libr/gnl/get_next_line.c \
 	./libr/gnl/get_next_line_utils.c
 ENTRY = ./mandatory/pipex.c
