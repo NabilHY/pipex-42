@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 12:14:30 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/09 17:08:08 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/11 20:51:41 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,17 @@ char	**tokenize_(char *av)
 	while (node && counts[0])
 	{
 		args[counts[1]] = ft_strdup(node->comm);
+		printf("%p\n", args[counts[1]]);
 		node = node->next;
 		counts[1]++;
 	}
 	args[counts[1]] = NULL;
-	freell(&tokens);
+	freell(&tokens, 0);
 	return (args);
 }
 
 
-t_comm	*append_comms_(char **av, int ac, char **envp)
+t_comm	*append_comms_(char **av, int ac)
 {
 	int i;
 	int	j;
@@ -97,7 +98,6 @@ t_comm	*append_comms_(char **av, int ac, char **envp)
 
 	i = 2;
 	j = 0;
-	(void)envp;
 	cl = NULL;
 	while (i < ac - 1)
 	{

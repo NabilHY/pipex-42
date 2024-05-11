@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:54:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/09 21:39:02 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/11 20:55:37 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ int	is_bin(char **bin_dir, char *cmd)
 		cmd_path = NULL;
 		i++;
 	}
-	//if (path_i == -1)
-	//	handle_error();
+	if (path_i == -1)
+	{
+		perror("Command:");
+		handle_error();
+	}
 	return (path_i);
 }
 
@@ -78,10 +81,10 @@ void	get_exec(char *av, t_comm *comm, char **envp)
 		comm->path = ft_strdup(av);
 	else if (is_bin(paths, av) != -1)
 	{
-		temp = comm->path;
 		comm->path = ft_strjoin("/", av);
-		free(temp);
+		temp = comm->path;
 		comm->path = ft_strjoin(paths[is_bin(paths, av)], comm->path);
+		free(temp);
 	}
 	else
 		comm->path = NULL;

@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:39:03 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/09 20:41:45 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/11 20:52:34 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		lst_count(t_comm **lst)
 	return (count);
 }
 
-void freell(t_comm **lst)
+void freell(t_comm **lst, int flag)
 {
 	t_comm *node;
 	t_comm *temp;
@@ -87,6 +87,16 @@ void freell(t_comm **lst)
 	{
 		temp = node;
 		node = node->next;
+
+		if (flag)
+		{
+			int i = 0;
+			while (temp->args[i])
+			{
+				free(temp->args[i]);
+				i++;
+			}
+		}
 		free(temp->args);
 		free(temp->comm);
 		free(temp->path);

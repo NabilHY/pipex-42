@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:23:09 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/09 22:06:43 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/11 20:55:00 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ void		print(char **str)
 
 int		is_file(t_io *ios)
 {
-	if (access("in", F_OK) || access("in", R_OK))
+	if (access(ios->in_file, F_OK) || access(ios->in_file, R_OK))
 	{
-		perror("In: ");
+		perror("File");
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		ios->in = open("in", O_RDONLY, 0644);
+		ios->in = open(ios->in_file, O_RDONLY, 0644);
 		if (ios->in == -1)
 			return (0);
 	}
-		ios->out = open("out", O_CREAT | O_TRUNC | O_WRONLY, 0644);
-		if (ios->out == -1)
-			return (0);
-		dprintf(2, "%d\n", ios->out);
+	ios->out = open(ios->out_file, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	if (ios->out == -1)
+		return (0);
+	ios->prev_read_end = -1;
 	return (1);
 }
 
@@ -57,16 +57,25 @@ int	main(int ac, char *av[], char *env[])
 	t_io	ios;
 
 	cl = NULL;
-	if (ac >= 5 && is_file(&ios))
+	atexit(leaks);
+	if (ac >= 5 && is_valid(av, ac))
 	{
-		cl = append_comms_(av, ac, env);
-		node = cl;
-		while (node)
+		ios.in_file = av[1];
+		ios.out_file = av[ac-1];
+		if (is_file(&ios))
 		{
-			get_exec(node->args[0], node, env);
-			node = node->next;
+			cl = append_comms_(av, ac);
+			if (!cl)
+				handle_error();
+			node = cl;
+			while (node)
+			{
+				get_exec(node->args[0], node, env);
+				node = node->next;
+			}
+			execute_pipes(cl, lst_count(&cl), &ios);
 		}
-		execute_pipes(cl, lst_count(&cl), &ios);
+		freell(&cl, 1);
 	}
 	return (0);
 }
