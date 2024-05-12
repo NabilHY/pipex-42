@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:23:09 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/12 18:39:53 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/12 18:42:54 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 int	is_file(t_io *ios, char **env)
 {
@@ -59,7 +59,5 @@ int	main(int ac, char *av[], char *env[])
 			freell(&cl, 1);
 		}
 	}
-	else
-		ft_putstr_fd(INVALID_FORMAT, 2);
 	return (0);
 }
