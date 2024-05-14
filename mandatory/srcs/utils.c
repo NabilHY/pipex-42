@@ -6,11 +6,11 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:27:12 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/12 16:19:24 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:35:55 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex_bonus.h"
+#include "../pipex.h"
 
 int	only_whitespaces(char *str)
 {

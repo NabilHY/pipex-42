@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:25:29 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/12 18:39:04 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:36:30 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <sys/wait.h>
+
 
 typedef struct s_comm
 {
@@ -35,10 +36,17 @@ typedef struct s_io
 	int				in;
 	int				out;
 	char			**envp;
+	int				here_doc;
 	int				prev_read_end;
 	char			*in_file;
 	char			*out_file;
 }					t_io;
+
+typedef struct s_doc
+{
+	int		tmp_fd;
+	char	*delimiter;
+}					t_doc;
 
 # define INVALID_FORMAT "Usage: ./pipex <in> \"cmd1\" \"cmd2\" <out>\n"
 
@@ -50,7 +58,7 @@ void				ft_lstadd_back(t_comm **lst, t_comm *cmd);
 
 void				free_darr(char **arr);
 
-t_comm				*append_comms_(char **av, int ac);
+t_comm				*append_comms_(char **av, int ac, int here_doc);
 
 int					lst_count(t_comm **lst);
 

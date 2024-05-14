@@ -6,14 +6,14 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:06:07 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/06 15:34:41 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:43:45 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBR_H
 
 # define LIBR_H
-
+ 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif

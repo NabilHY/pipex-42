@@ -6,11 +6,11 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:54:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/12 16:19:24 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/14 15:23:37 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex_bonus.h"
+#include "../pipex.h"
 
 int	is_bin(char **bin_dir, char *cmd)
 {

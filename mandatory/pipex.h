@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:25:29 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/12 15:48:27 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:36:37 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PIPEX_H
 # include "../libr/libr.h"
 # include <fcntl.h>
-# include <stdio.h>
 # include <sys/wait.h>
+# include <stdio.h>
 
 typedef struct s_comm
 {

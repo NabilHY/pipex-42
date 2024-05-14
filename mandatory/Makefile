@@ -15,10 +15,12 @@ FSANITIZE = -fsanitize=address
 all: $(NAME)
 
 %.o: %.c $(SRCS) $(INCLUDE)
-	$(CC) $(FLAGS) -I $(INCLUDE) -c $< -o $@
+	@$(CC) $(FLAGS) -I $(INCLUDE) -c $< -o $@ >/dev/null
 
 $(NAME): $(ENTRY) $(OBJS) $(INCLUDE) $(LIBR)
-	$(CC) $(FLAGS) $(ENTRY) -I$(INCLUDE) $(OBJS) $(LIBR) -o $(NAME)
+	@$(CC) $(FLAGS) $(ENTRY) -I$(INCLUDE) $(OBJS) $(LIBR) -o $(NAME)
+	
+
 
 clean:
 	rm -rf $(OBJS)

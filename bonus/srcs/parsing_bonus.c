@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 12:14:30 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/12 16:19:24 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:45:08 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,17 @@ char	**tokenize_(char *av)
 	return (args);
 }
 
-t_comm	*append_comms_(char **av, int ac)
+t_comm	*append_comms_(char **av, int ac, int here_doc)
 {
 	int		i;
 	int		j;
 	t_comm	*cl;
 	t_comm	*new;
 
-	i = 2;
+	if (here_doc)
+		i = 3;
+	else
+		i = 2;
 	j = 0;
 	cl = NULL;
 	while (i < ac - 1)

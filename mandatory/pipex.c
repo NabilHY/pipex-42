@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:23:09 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/12 18:39:53 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/14 16:31:15 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,27 @@ int	is_file(t_io *ios, char **env)
 	return (1);
 }
 
+void	start_exec(t_io *ios, char **av, int ac, char **env)
+{
+	t_comm	*node;
+	t_comm	*cl;
+
+	cl = append_comms_(av, ac);
+	if (!cl)
+		handle_error();
+	node = cl;
+	while (node)
+	{
+		get_exec(node->args[0], node, env);
+		node = node->next;
+	}
+	execute_pipes(cl, lst_count(&cl), ios);
+	freell(&cl, 1);
+}
+
 int	main(int ac, char *av[], char *env[])
 {
 	t_comm	*cl;
-	t_comm	*node;
 	t_io	ios;
 
 	cl = NULL;
@@ -45,19 +62,7 @@ int	main(int ac, char *av[], char *env[])
 		ios.in_file = av[1];
 		ios.out_file = av[ac - 1];
 		if (is_file(&ios, env))
-		{
-			cl = append_comms_(av, ac);
-			if (!cl)
-				handle_error();
-			node = cl;
-			while (node)
-			{
-				get_exec(node->args[0], node, env);
-				node = node->next;
-			}
-			execute_pipes(cl, lst_count(&cl), &ios);
-			freell(&cl, 1);
-		}
+			start_exec(&ios, av, ac, env);
 	}
 	else
 		ft_putstr_fd(INVALID_FORMAT, 2);

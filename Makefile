@@ -3,9 +3,14 @@ FLAGS = -Wall -Wextra -Werror
 SRCS_MAN = ./mandatory/srcs/utils.c \
 ./mandatory/srcs/list.c \
 ./mandatory/srcs/path.c \
-./mandatory/srcs/parsing.c
-OBJS_MAN = $(SRCS_MAN:%.c=%.o)
-LIBR_SRCS = ./libr/libft/ft_isascii.c \
+./mandatory/srcs/parsing.c \
+./mandatory/srcs/pipes.c
+SRCS_BON = ./bonus/srcs/list_bonus.c \
+./bonus/srcs/parsing_bonus.c \
+./bonus/srcs/path_bonus.c \
+./bonus/srcs/pipes_bonus.c \
+./bonus/srcs/utils_bonus.c
+SRCS_LIBR = ./libr/libft/ft_isascii.c \
 	./libr/libft/ft_isalpha.c \
 	./libr/libft/ft_isdigit.c \
 	./libr/libft/ft_isprint.c \
@@ -41,37 +46,44 @@ LIBR_SRCS = ./libr/libft/ft_isascii.c \
 	./libr/libft/ft_putendl_fd.c \
 	./libr/gnl/get_next_line.c \
 	./libr/gnl/get_next_line_utils.c
+OBJS_MAN = $(SRCS_MAN:%.c=%.o)
+OBJS_BON = $(SRCS_BON:%.c=%.o)
+OBJS_LIBR = $(SRCS_LIBR:%.c=%.o)
 ENTRY = ./mandatory/pipex.c
+ENTRY_BON = ./bonus/pipex_bonus.c
 INCLUDE_MAN = ./mandatory/pipex.h
+INCLUDE_BON = ./bonus/pipex_bonus.h
 LIBR_INCLUDE = ./libr/libr.h
 LIBR = libr.a
 NAME = pipex
-BONUS = pipexx
+BONUS = pipex_bonus
 
 all: $(LIBR) $(NAME)
 
-bonus: $(LIBR) $(NAME)
+bonus: $(LIBR) $(BONUS)
 
-$(LIBR): $(LIBR_SRCS)
-	make -C libr
-
-%.o: %.c $(INCLUDE)
-	$(CC) $(FLAGS) -I $(INCLUDE_MAN) -c $< -o $@
+$(LIBR): $(SRCS_LIBR) $(OBJS_LIBR)
+	@echo "Compiling libr ..."
+	@ar rcs $(LIBR) $(OBJS_LIBR)
+	echo "libr.a Compiled"
 
 $(NAME): $(ENTRY) $(OBJS_MAN) $(INCLUDE_MAN) $(LIBR)
-	make -C mandatory
+	@echo "Compiling Mandatory part dependencies..."
+	@$(CC) $(FLAGS) $(ENTRY) -I$(INCLUDE_MAN) $(OBJS_MAN) $(LIBR) -o $(NAME)
+	@echo "Program Compiled Successefully !"
 
-$(BONUS): $(OBJS_MAN) $(INCLUDE_MAN) $(LIBR)
-	make -C bonus
+$(BONUS): $(ENTRY_BON) $(OBJS_BON) $(INCLUDE_BON) $(LIBR)
+	@echo "Compiling Bonus part dependencies..."
+	@$(CC) $(FLAGS) $(ENTRY_BON) -I$(INCLUDE_BON) $(OBJS_BON) $(LIBR) -o $(BONUS)
+	@echo "Bonus Part Compiled Successefully !"
 
 clean:
-	rm -rf $(OBJS_MAN)
-	make clean -C libr
-	make clean -C mandatory
+	@echo "Deleting Object Files ..."
+	@rm -rf $(OBJS_MAN) $(OBJS_BON) $(OBJS_LIBR)
+	@echo "Deleted!"
 
 fclean: clean
-	rm -rf $(NAME) $(LIBR)
-	make fclean -C libr
-	make clean -C mandatory
-
+	@echo "Removing Execu files ..."
+	@rm -rf $(NAME) $(LIBR) $(BONUS)
+	@echo "Deleted!"
 re: fclean all

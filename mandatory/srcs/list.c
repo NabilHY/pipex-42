@@ -6,11 +6,11 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:39:03 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/12 16:19:24 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/14 15:23:45 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex_bonus.h"
+#include "../pipex.h"
 
 int	ft_lstindex(t_comm *lst, int index)
 {
