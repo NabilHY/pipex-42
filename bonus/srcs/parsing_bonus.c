@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 12:14:30 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/14 19:45:08 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/15 22:29:44 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ int	append_(int *start, char *str, t_comm **tokens, int i)
 		str[i] = '\0';
 		new = ft_lstnew();
 		new->comm = ft_strtrim((str + *start), " ");
-		if (ft_strlen(new->comm))
+		if (ft_strlen(new->comm) && !only_whitespaces(new->comm))
 			ft_lstadd_back(tokens, new);
+		else
+			freell(&new, 0);
 		*start = i + 1;
 	}
 	return (0);

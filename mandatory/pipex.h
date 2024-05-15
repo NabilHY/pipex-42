@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:25:29 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/15 11:20:33 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/15 22:30:04 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define PIPEX_H
 # include "../libr/libr.h"
 # include <fcntl.h>
-# include <sys/wait.h>
 # include <stdio.h>
+# include <sys/wait.h>
 
 typedef struct s_comm
 {
@@ -61,5 +61,9 @@ void				handle_error(void);
 int					is_valid(char **av, int ac);
 
 void				freell(t_comm **lst, int flag);
+
+void				update_trackers(int *quotes, int *start, int *i);
+
+int					only_whitespaces(char *str);
 
 #endif

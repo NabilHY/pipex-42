@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:25:29 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/15 11:20:47 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/15 22:29:17 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_io
 
 typedef struct s_doc
 {
-	int		tmp_fd;
-	char	*delimiter;
+	int				tmp_fd;
+	char			*delimiter;
 }					t_doc;
 
 # define INVALID_FORMAT "Usage: ./pipex <in> \"cmd1\" \"cmd2\" <out>\n"
@@ -68,5 +68,7 @@ void				handle_error(void);
 int					is_valid(char **av, int ac);
 
 void				freell(t_comm **lst, int flag);
+
+int					only_whitespaces(char *str);
 
 #endif

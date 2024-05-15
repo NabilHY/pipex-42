@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 12:13:18 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/14 17:45:07 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/15 16:00:30 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ void	child_process(t_io *ios, t_comm *node, int type, int *fds)
 		close(ios->out);
 		execve(node->path, node->args, ios->envp);
 	}
-	else if (type == 2)
-	{
-		dup2(ios->prev_read_end, STDIN_FILENO);
-		dup2(fds[1], STDOUT_FILENO);
-		close_fds(fds);
-		close(ios->in);
-		execve(node->path, node->args, ios->envp);
-	}
 }
 
 void	parent_process(t_comm *cl, int count, t_io *ios)
@@ -70,10 +62,8 @@ void	parent_process(t_comm *cl, int count, t_io *ios)
 		{
 			if (i == 0)
 				child_process(ios, node, 0, fds);
-			else if (i == count - 1)
-				child_process(ios, node, 1, fds);
 			else
-				child_process(ios, node, 2, fds);
+				child_process(ios, node, 1, fds);
 		}
 		else
 			save_pipe(ios, fds);
