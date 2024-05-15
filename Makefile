@@ -65,7 +65,11 @@ bonus: $(LIBR) $(BONUS)
 $(LIBR): $(SRCS_LIBR) $(OBJS_LIBR)
 	@echo "Compiling libr ..."
 	@ar rcs $(LIBR) $(OBJS_LIBR)
-	echo "libr.a Compiled"
+	@echo "libr.a Compiled"
+
+%.o: %.c $(INCLUDE_MAN) $(INCLUDE_BON)
+	@echo "Compiling $<..."
+	@$(CC) $(FLAGS) -I$(INCLUDE) -I$(MLX_INCLUDE) -c $< -o $@
 
 $(NAME): $(ENTRY) $(OBJS_MAN) $(INCLUDE_MAN) $(LIBR)
 	@echo "Compiling Mandatory part dependencies..."
