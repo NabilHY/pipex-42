@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 12:23:09 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/15 22:29:03 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/19 11:30:48 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	here_doc(t_io *ios, char **av)
 	{
 		ft_putstr_fd("pipe heredoc> ", 1);
 		buf = get_next_line(0);
-		if (!buf || !ft_strncmp(buf, temp, ft_strlen(temp)))
+		if (!buf || ft_strnstr(buf, joined, ft_strlen(buf)))
 			break ;
 		ft_putstr_fd(buf, ios->in);
 		free(buf);
@@ -100,7 +100,7 @@ int	main(int ac, char *av[], char *env[])
 		ios.out_file = av[ac - 1];
 		if (is_file(&ios, env, av, &doc))
 			start_exec(&ios, av, ac, env);
-		if (ios.here_doc != -1)
+		if (ios.here_doc)
 		{
 			close(ios.in);
 			unlink(ios.in_file);

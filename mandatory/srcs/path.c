@@ -6,7 +6,7 @@
 /*   By: nhayoun <nhayoun@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 16:54:26 by nhayoun           #+#    #+#             */
-/*   Updated: 2024/05/14 15:23:37 by nhayoun          ###   ########.fr       */
+/*   Updated: 2024/05/18 19:58:04 by nhayoun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	is_bin(char **bin_dir, char *cmd)
 		cmd_path = NULL;
 		i++;
 	}
-	if (path_i == -1)
-		handle_error();
 	return (path_i);
 }
 
